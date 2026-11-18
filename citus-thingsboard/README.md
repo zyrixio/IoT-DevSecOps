@@ -1,4 +1,4 @@
-# PoC ThingsBoard di atas Citus
+# ThingsBoard dengan Database Citus
 
 ThingsBoard CE 4.4.0.1 dengan database PostgreSQL terdistribusi (Citus).
 Versi yang diuji: PostgreSQL 18.4, Citus 14.2.0.
