@@ -1,0 +1,16 @@
+services:
+  citus-worker:
+    image: citusdata/citus:${CITUS_TAG:-latest}
+    restart: unless-stopped
+    ports:
+      - "${DB_HOST_PORT:-5433}:5432"
+    environment:
+      POSTGRES_DB: thingsboard
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGUSER: postgres
+      PGPASSWORD: ${DB_PASSWORD}
+    volumes:
+      - citus-worker-data:/var/lib/postgresql
+volumes:
+  citus-worker-data:

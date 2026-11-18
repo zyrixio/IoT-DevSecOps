@@ -1,0 +1,24 @@
+services:
+  thingsboard-ce:
+    restart: always
+    image: "thingsboard/tb-node:${TB_VERSION:-4.4.0.1}"
+    ports:
+      - "8080:8080"
+      - "7070:7070"
+      - "1883:1883"
+      - "8883:8883"
+      - "5683-5688:5683-5688/udp"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+    environment:
+      TB_SERVICE_ID: tb-ce-node
+      SPRING_DATASOURCE_URL: jdbc:postgresql://${COORDINATOR_IP}:${DB_HOST_PORT:-5433}/thingsboard
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      DATABASE_CITUS_ENABLED: "true"
+      DATABASE_CITUS_SHARD_COUNT: "${CITUS_SHARD_COUNT:-8}"
+      SPRING_DATASOURCE_MAXIMUM_POOL_SIZE: "${DB_POOL_SIZE:-32}"
+      DATABASE_CITUS_SMART_ROUTING_WORKER_POOL_SIZE: "${WORKER_POOL_SIZE:-8}"
